@@ -1,23 +1,18 @@
-const STATIC_ASSETS = ["/", "/cacheTest.txt", "/cacheTest2.txt", "index.html"];
+const CACHE_NAME = "cache-v1";
+const urlsToCache = ["/", "/index.html", "/styles.css"];
 
-// `install` event listener
-self.addEventListener("install", function (event) {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open("static").then(function (cache) {
-      cache.addAll(STATIC_ASSETS);
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
     })
   );
 });
 
-// `activate` event listener
-self.addEventListener("activate", function (event) {
-  return self.clients.claim();
-});
-
 // `fetch` event listener
-self.addEventListener("fetch", function (event) {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then(function (response) {
+    caches.match(event.request).then((response) => {
       if (response) {
         return response;
       }
