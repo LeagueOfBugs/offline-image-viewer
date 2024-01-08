@@ -1,1 +1,1 @@
-# offline-image-viewer
+# Learning PWAs offline content
